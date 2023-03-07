@@ -9,15 +9,19 @@ const getAll = async (req, res) => {
   let contacts;
 
   if (favorite) {
-    contacts = await Contact.find({ owner }, "-createdAt -updatedAt", {
-      skip,
-      limit: Number(limit),
-    }).populate("owner", "_id email subscription");
+    contacts = await Contact.find(
+      { owner, favorite },
+      "-createdAt -updatedAt",
+      {
+        skip,
+        limit: Number(limit),
+      }
+    ).populate("owner", "_id email subscription");
   } else {
-    contacts = await Contact.find({ owner }, "-createdAt -updatedAt", {
-      skip,
-      limit: Number(limit),
-    }).populate("owner", "_id email subscription");
+    contacts = await Contact.find({ owner }, "-createdAt -updatedAt").populate(
+      "owner",
+      "_id email subscription"
+    );
   }
   res.json({ result: contacts });
 };
