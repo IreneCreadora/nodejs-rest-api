@@ -17,7 +17,7 @@ const register = async (req, res) => {
     throw HttpError(409, "Email already in use");
   }
 
-  const hashPassword = await bcrypt.hash(password, 10);
+  const hashPassword = await bcrypt.hashSync(password, 10);
   const avatarURL = gravatar.url(email);
   const verificationCode = uuidv4();
 
